@@ -40,4 +40,9 @@ npm-debug.log*
 *.swp
 
 migrations/
-uploads/
+/uploads/*
+
+/uploads/pdf/*
+/uploads/image/*
+!/uploads/pdf/pdf_6.pdf
+!/uploads/image/image_4.jpg

@@ -1,11 +1,12 @@
 from django.urls import path
 from .views import (
     UploadFileView, ListImagesView, ListPDFsView, ImageDetailView, PDFDetailView,
-    DeleteImageView, DeletePDFView, RotateImageView, ConvertPDFToImageView
+    DeleteImageView, DeletePDFView, RotateImageView, ConvertPDFToImageView,ListUploudView
 )
 
 urlpatterns = [
     path('upload/', UploadFileView.as_view()),
+    path('upload/all/', ListUploudView.as_view()),
     path('images/', ListImagesView.as_view()),
     path('pdfs/', ListPDFsView.as_view()),
     path('images/<int:pk>/', ImageDetailView.as_view()),

@@ -68,6 +68,10 @@ class UploadFileView(APIView):
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
+class ListUploudView(generics.ListAPIView):
+    queryset = UploadedFile.objects.all()
+    serializer_class = UploadedFileSerializer
+
 class ListImagesView(generics.ListAPIView):
     queryset = UploadedFile.objects.filter(file_type='image')
     serializer_class = UploadedFileSerializer
@@ -111,8 +115,11 @@ class RotateImageView(APIView):
             with Image.open(image_file.file_path.path) as image:
                 rotated_image = image.rotate(float(angle), expand=True)
                 rotated_image.save(image_file.file_path.path)
-
-            return Response({'message': 'Image rotated successfully.'}, status=status.HTTP_200_OK)
+            file_path = image_file.file_path.url
+            return Response({
+                'message': 'Image rotated successfully.',
+                'file_path': file_path
+            }, status=status.HTTP_200_OK)
 
         except ImageMetadata.DoesNotExist:
             return Response({'error': 'Image metadata not found.'}, status=status.HTTP_404_NOT_FOUND)
