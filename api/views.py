@@ -71,6 +71,13 @@ class UploadFileView(APIView):
 class ListUploudView(generics.ListAPIView):
     queryset = UploadedFile.objects.all()
     serializer_class = UploadedFileSerializer
+    def get_object(self):
+        return UploadedFile.objects.get(id=self.kwargs['id'])
+
+    def delete(self, request, *args, **kwargs):
+        file = self.get_object()
+        file.delete()
+        return Response({'message': 'File deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
 
 class ListImagesView(generics.ListAPIView):
     queryset = UploadedFile.objects.filter(file_type='image')

@@ -7,6 +7,7 @@ from .views import (
 urlpatterns = [
     path('upload/', UploadFileView.as_view()),
     path('upload/all/', ListUploudView.as_view()),
+    path('upload/delete/<int:id>/', ListUploudView.as_view()),
     path('images/', ListImagesView.as_view()),
     path('pdfs/', ListPDFsView.as_view()),
     path('images/<int:pk>/', ImageDetailView.as_view()),
